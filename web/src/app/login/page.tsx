@@ -1,11 +1,20 @@
 "use client";
 import { signIn } from "next-auth/react";
 import Link from "next/link";
-import { useState } from "react";
+import { Suspense, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
-import { Sparkles, Loader2 } from "lucide-react";
+import { Loader2 } from "lucide-react";
+import AuthShell, { Field, GoogleIcon } from "@/components/AuthShell";
 
 export default function LoginPage() {
+  return (
+    <Suspense fallback={<div className="min-h-screen bg-bg" />}>
+      <LoginInner />
+    </Suspense>
+  );
+}
+
+function LoginInner() {
   const router = useRouter();
   const sp = useSearchParams();
   const [email, setEmail] = useState("");
@@ -24,87 +33,36 @@ export default function LoginPage() {
   }
 
   return (
-    <div className="min-h-screen grid md:grid-cols-2 bg-bg">
-      <div className="hidden md:flex flex-col justify-between p-12 bg-grad-radial border-r border-border/60">
-        <Link href="/" className="flex items-center gap-2">
-          <div className="size-8 rounded-xl bg-grad-primary shadow-glow grid place-items-center">
-            <Sparkles className="size-4 text-white" />
-          </div>
-          <span className="font-semibold tracking-tight">Infinity</span>
-        </Link>
-        <div>
-          <h2 className="text-4xl font-bold gradient-text leading-tight">Welcome back.</h2>
-          <p className="mt-3 text-muted max-w-sm">Pick up where you left off — your automations are waiting.</p>
-        </div>
-        <p className="text-xs text-muted">© {new Date().getFullYear()} Infinity</p>
+    <AuthShell
+      title="Welcome back"
+      subtitle="Sign in to continue building."
+      footer={<>No account? <Link href="/register" className="text-primary font-medium hover:underline">Create one</Link></>}
+    >
+      <button
+        onClick={() => signIn("google", { callbackUrl: "/dashboard" })}
+        className="btn-ghost w-full rounded-2xl px-4 py-3 flex items-center justify-center gap-3 transition"
+      >
+        <GoogleIcon /> Continue with Google
+      </button>
+
+      <div className="flex items-center gap-3 my-6">
+        <div className="h-px flex-1 bg-border" />
+        <span className="text-xs text-subtle">or</span>
+        <div className="h-px flex-1 bg-border" />
       </div>
 
-      <div className="flex items-center justify-center p-6">
-        <div className="w-full max-w-md">
-          <h1 className="text-3xl font-bold mb-2">Sign in</h1>
-          <p className="text-muted mb-8">to continue to Infinity</p>
-
-          <button
-            onClick={() => signIn("google", { callbackUrl: "/dashboard" })}
-            className="w-full glass rounded-xl px-4 py-3 flex items-center justify-center gap-3 hover:bg-card transition mb-4"
-          >
-            <GoogleIcon /> Continue with Google
-          </button>
-
-          <div className="flex items-center gap-3 my-6">
-            <div className="h-px flex-1 bg-border" />
-            <span className="text-xs text-muted">or</span>
-            <div className="h-px flex-1 bg-border" />
-          </div>
-
-          <form onSubmit={onSubmit} className="space-y-3">
-            <Field label="Email" type="email" value={email} onChange={setEmail} placeholder="you@company.com" />
-            <Field label="Password" type="password" value={password} onChange={setPassword} placeholder="••••••••" />
-            {err && <p className="text-sm text-danger">{err}</p>}
-            <button
-              type="submit"
-              disabled={loading}
-              className="w-full bg-grad-primary text-white rounded-xl py-3 font-medium shadow-glow hover:opacity-95 transition flex items-center justify-center gap-2 disabled:opacity-60"
-            >
-              {loading && <Loader2 className="size-4 animate-spin" />} Sign in
-            </button>
-          </form>
-
-          <p className="text-sm text-muted mt-6 text-center">
-            No account?{" "}
-            <Link href="/register" className="text-primary hover:underline">Create one</Link>
-          </p>
-        </div>
-      </div>
-    </div>
-  );
-}
-
-function Field({
-  label, type, value, onChange, placeholder,
-}: { label: string; type: string; value: string; onChange: (v: string) => void; placeholder?: string }) {
-  return (
-    <label className="block">
-      <span className="text-xs text-muted">{label}</span>
-      <input
-        type={type}
-        value={value}
-        required
-        onChange={(e) => onChange(e.target.value)}
-        placeholder={placeholder}
-        className="mt-1 w-full bg-card border border-border rounded-xl px-4 py-3 outline-none focus:border-primary/60 focus:ring-2 focus:ring-primary/20 transition"
-      />
-    </label>
-  );
-}
-
-function GoogleIcon() {
-  return (
-    <svg viewBox="0 0 48 48" className="size-5">
-      <path fill="#FFC107" d="M43.6 20.5H42V20H24v8h11.3c-1.6 4.7-6 8-11.3 8-6.6 0-12-5.4-12-12s5.4-12 12-12c3 0 5.8 1.1 7.9 3l5.7-5.7C34.4 6.5 29.5 4.5 24 4.5 13.2 4.5 4.5 13.2 4.5 24S13.2 43.5 24 43.5 43.5 34.8 43.5 24c0-1.2-.1-2.4-.3-3.5z"/>
-      <path fill="#FF3D00" d="M6.3 14.7l6.6 4.8C14.7 16 19 13 24 13c3 0 5.8 1.1 7.9 3l5.7-5.7C34.4 6.5 29.5 4.5 24 4.5 16.3 4.5 9.6 8.9 6.3 14.7z"/>
-      <path fill="#4CAF50" d="M24 43.5c5.4 0 10.3-2 14-5.3l-6.5-5.3c-1.9 1.4-4.5 2.3-7.5 2.3-5.3 0-9.7-3.3-11.3-8l-6.5 5C9.5 39 16.2 43.5 24 43.5z"/>
-      <path fill="#1976D2" d="M43.6 20.5H42V20H24v8h11.3c-.8 2.3-2.2 4.2-4.1 5.6l6.5 5.3c4.1-3.8 6.7-9.5 6.7-15.4 0-1.2-.1-2.4-.3-3.5z"/>
-    </svg>
+      <form onSubmit={onSubmit} className="space-y-3">
+        <Field label="Email" type="email" value={email} onChange={setEmail} placeholder="you@company.com" />
+        <Field label="Password" type="password" value={password} onChange={setPassword} placeholder="••••••••" />
+        {err && <p className="text-sm text-danger">{err}</p>}
+        <button
+          type="submit"
+          disabled={loading}
+          className="btn-primary w-full rounded-2xl py-3 flex items-center justify-center gap-2"
+        >
+          {loading && <Loader2 className="size-4 animate-spin" />} Sign in
+        </button>
+      </form>
+    </AuthShell>
   );
 }

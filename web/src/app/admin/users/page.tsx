@@ -37,12 +37,12 @@ export default function AdminUsers() {
 
   return (
     <div className="p-8 max-w-6xl">
-      <h1 className="text-2xl font-bold">Users</h1>
+      <h1 className="text-3xl font-bold tracking-tight">Users</h1>
       <p className="text-muted text-sm mt-1">{users.length} total</p>
 
-      <div className="mt-6 glass rounded-2xl overflow-hidden">
+      <div className="mt-6 card rounded-2xl overflow-hidden">
         <table className="w-full text-sm">
-          <thead className="bg-card/50">
+          <thead className="bg-bg/50">
             <tr className="text-left text-muted">
               <th className="px-4 py-3 font-medium">User</th>
               <th className="px-4 py-3 font-medium">Role</th>
@@ -53,10 +53,10 @@ export default function AdminUsers() {
           </thead>
           <tbody>
             {users.map((u) => (
-              <tr key={u.id} className="border-t border-border hover:bg-card/30 transition">
+              <tr key={u.id} className="border-t border-border hover:bg-bg/40 transition">
                 <td className="px-4 py-3">
                   <div className="flex items-center gap-3">
-                    <div className="size-8 rounded-full bg-grad-primary grid place-items-center text-xs font-semibold text-white">
+                    <div className="size-8 rounded-full bg-grad-brand grid place-items-center text-xs font-semibold text-white">
                       {(u.name || u.email)[0]?.toUpperCase()}
                     </div>
                     <div>
@@ -68,8 +68,8 @@ export default function AdminUsers() {
                 <td className="px-4 py-3">
                   <button
                     onClick={() => toggleRole(u)}
-                    className={`text-xs px-2 py-1 rounded-md flex items-center gap-1.5 transition ${
-                      u.role === "ADMIN" ? "bg-primary/20 text-primary" : "bg-card text-muted hover:text-text"
+                    className={`text-xs px-2 py-1 rounded-md flex items-center gap-1.5 transition border ${
+                      u.role === "ADMIN" ? "bg-primary/10 text-primary border-primary/20" : "bg-bg text-muted border-border hover:text-text"
                     }`}
                   >
                     {u.role === "ADMIN" ? <ShieldCheck className="size-3.5" /> : <User className="size-3.5" />}
@@ -79,7 +79,7 @@ export default function AdminUsers() {
                 <td className="px-4 py-3 text-muted">{u._count.workflows}</td>
                 <td className="px-4 py-3 text-muted">{relativeTime(u.createdAt)}</td>
                 <td className="px-4 py-3 text-right">
-                  <button onClick={() => remove(u)} className="size-8 grid place-items-center rounded-lg hover:bg-danger/20 text-muted hover:text-danger transition">
+                  <button onClick={() => remove(u)} className="size-8 grid place-items-center rounded-lg hover:bg-danger/10 text-muted hover:text-danger transition">
                     <Trash2 className="size-4" />
                   </button>
                 </td>

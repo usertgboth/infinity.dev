@@ -9,7 +9,6 @@ export default function ChatPage() {
   const { id } = useParams<{ id: string }>();
   const [messages, setMessages] = useState<ChatMsg[]>([]);
   const [workflow, setWorkflow] = useState<any>(null);
-  const [workflowId, setWorkflowId] = useState<string | null>(null);
   const [busy, setBusy] = useState(false);
 
   useEffect(() => {
@@ -25,7 +24,6 @@ export default function ChatPage() {
           nodes: j.workflow.graph?.nodes || [],
           connections: j.workflow.graph?.connections || {},
         });
-        setWorkflowId(j.workflow.id);
       }
     })();
   }, [id]);
@@ -43,7 +41,6 @@ export default function ChatPage() {
       if (!r.ok) throw new Error(j.error || "Failed");
       setMessages((m) => [...m, { role: "assistant", content: j.reply }]);
       setWorkflow(j.workflow);
-      setWorkflowId(j.workflowId);
     } catch (e: any) {
       setMessages((m) => [...m, { role: "assistant", content: `⚠️ ${e.message}` }]);
     } finally {
@@ -52,12 +49,12 @@ export default function ChatPage() {
   }
 
   return (
-    <div className="grid grid-cols-[420px_1fr] h-full">
+    <div className="grid grid-cols-[440px_1fr] h-full">
       <Chat messages={messages} onSend={send} busy={busy} />
       <div className="flex flex-col">
-        <div className="h-14 border-b border-border px-5 flex items-center gap-3 bg-surface/60">
+        <div className="h-14 border-b border-border px-5 flex items-center gap-3 bg-surface">
           <Sparkles className="size-4 text-primary" />
-          <h3 className="font-medium">{workflow?.name || "Canvas"}</h3>
+          <h3 className="font-medium truncate">{workflow?.name || "Canvas"}</h3>
         </div>
         <div className="flex-1"><FlowCanvas workflow={workflow} /></div>
       </div>
