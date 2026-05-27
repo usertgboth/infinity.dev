@@ -1,0 +1,16 @@
+# n8n is a separate dependency, not part of this repo.
+# Run it via Docker or clone fresh: git clone --depth 1 https://github.com/n8n-io/n8n.git
+n8n/
+
+node_modules
+.next
+out
+.env
+.env.local
+*.db
+*.db-journal
+.DS_Store
+.vscode
+.idea
+dist
+*.log
