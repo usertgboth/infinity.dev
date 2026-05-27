@@ -24,9 +24,9 @@ function NodeCard({ data }: { data: any }) {
   return (
     <div className="rounded-2xl card min-w-[230px] overflow-hidden animate-slide-up">
       <Handle type="target" position={Position.Left} />
-      <div className="px-4 py-3 flex items-center gap-3" style={{ background: data.color + "12" }}>
-        <div className="size-8 rounded-lg grid place-items-center" style={{ background: data.color + "22" }}>
-          <Icon className="size-4" style={{ color: data.color }} />
+      <div className="px-4 py-3 flex items-center gap-3" style={{ background: data.color + "1f" }}>
+        <div className="size-8 rounded-lg grid place-items-center" style={{ background: data.color + "33" }}>
+          <Icon className="size-4 icon-thin" style={{ color: data.color }} />
         </div>
         <div className="min-w-0">
           <div className="text-[10px] uppercase tracking-widest text-subtle truncate">{data.kind}</div>
@@ -34,7 +34,7 @@ function NodeCard({ data }: { data: any }) {
         </div>
       </div>
       {data.params && Object.keys(data.params).length > 0 && (
-        <div className="px-4 py-2 text-xs border-t border-border space-y-1 max-h-32 overflow-auto">
+        <div className="px-4 py-2 text-xs border-t border-border space-y-1 max-h-32 overflow-auto bg-elevated/40">
           {Object.entries(data.params).slice(0, 4).map(([k, v]) => (
             <div key={k} className="flex justify-between gap-2">
               <span className="text-subtle">{k}</span>
@@ -99,9 +99,9 @@ export default function FlowCanvas({ workflow }: { workflow: AIWorkflow | null }
 
   if (!workflow?.nodes?.length) {
     return (
-      <div className="h-full grid place-items-center text-muted bg-bg">
+      <div className="h-full grid place-items-center text-muted bg-bg bg-dots-dark">
         <div className="text-center max-w-sm px-6">
-          <div className="size-14 mx-auto mb-5 rounded-2xl bg-grad-brand-soft grid place-items-center shadow-soft">
+          <div className="size-14 mx-auto mb-5 rounded-2xl bg-grad-brand-soft border border-primary/20 grid place-items-center shadow-glow">
             <WorkflowIcon className="size-6 icon-thin text-primary" />
           </div>
           <p className="font-display text-xl font-medium tracking-tight text-text text-balance">
@@ -122,12 +122,12 @@ export default function FlowCanvas({ workflow }: { workflow: AIWorkflow | null }
       fitViewOptions={{ padding: 0.3 }}
       proOptions={{ hideAttribution: true }}
     >
-      <Background gap={24} size={1} color="#dad8d3" />
+      <Background gap={24} size={1} color="rgba(255,255,255,0.06)" />
       <Controls />
       <MiniMap
-        nodeColor={(n: any) => n.data?.color || "#ff4d6d"}
-        maskColor="rgba(253,250,246,0.7)"
-        style={{ background: "#ffffff", border: "1px solid #ececea", borderRadius: 12 }}
+        nodeColor={(n: any) => n.data?.color || "#ff5a7a"}
+        maskColor="rgba(9,9,11,0.7)"
+        style={{ background: "#131318", border: "1px solid rgba(255,255,255,0.08)", borderRadius: 12 }}
       />
     </ReactFlow>
   );

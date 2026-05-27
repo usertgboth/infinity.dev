@@ -5,20 +5,21 @@ export default {
   theme: {
     extend: {
       colors: {
-        // Editorial Luxury palette — warm cream base, deep charcoal ink, single coral accent.
-        bg: "#fbf8f3",
-        surface: "#ffffff",
-        ink: "#0a0a0b",
-        text: "#111114",
-        muted: "#5a5a63",
-        subtle: "#9a9aa3",
-        border: "rgba(15, 15, 17, 0.07)",
-        borderStrong: "rgba(15, 15, 17, 0.12)",
-        primary: "#ef3a5b",
-        primaryDark: "#d4264a",
-        coral: "#ff5a4a",
-        success: "#16a34a",
-        danger: "#dc2626",
+        // v0/Lovable/Emergent dark palette — near-black, refined zinc, single coral accent.
+        bg: "#09090b",        // deepest layer (page)
+        surface: "#0c0c0f",   // panels
+        elevated: "#131318",  // raised cards
+        ink: "#fafafa",
+        text: "#f4f4f5",
+        muted: "#9a9aa3",
+        subtle: "#5d5d68",
+        border: "rgba(255, 255, 255, 0.07)",
+        borderStrong: "rgba(255, 255, 255, 0.12)",
+        primary: "#ff5a7a",
+        primaryDark: "#e0436b",
+        coral: "#ff7a59",
+        success: "#22c55e",
+        danger: "#ef4444",
       },
       fontFamily: {
         sans: ['"Geist"', "ui-sans-serif", "system-ui", "sans-serif"],
@@ -30,20 +31,22 @@ export default {
         "tightest-2": "-0.04em",
       },
       boxShadow: {
-        // Soft, diffused, daylight-source shadows. Inner highlights for depth.
-        hairline: "inset 0 0 0 1px rgba(15,15,17,0.06)",
-        soft: "0 1px 2px rgba(15,15,17,0.04), 0 8px 24px -8px rgba(15,15,17,0.06)",
-        lifted: "0 2px 4px rgba(15,15,17,0.03), 0 30px 60px -20px rgba(15,15,17,0.10)",
+        hairline: "inset 0 0 0 1px rgba(255,255,255,0.06)",
+        soft: "0 1px 0 rgba(255,255,255,0.04) inset, 0 1px 2px rgba(0,0,0,0.4), 0 12px 24px -12px rgba(0,0,0,0.45)",
+        lifted: "0 1px 0 rgba(255,255,255,0.04) inset, 0 24px 60px -20px rgba(0,0,0,0.7)",
         prompt:
-          "inset 0 1px 0 rgba(255,255,255,0.9), 0 1px 2px rgba(15,15,17,0.04), 0 12px 28px -10px rgba(239,58,91,0.22), 0 40px 80px -30px rgba(239,58,91,0.12)",
-        innerHi: "inset 0 1px 0 rgba(255,255,255,0.7)",
+          "inset 0 1px 0 rgba(255,255,255,0.06), inset 0 0 0 1px rgba(255,255,255,0.04), 0 0 0 1px rgba(255,90,122,0.0), 0 30px 80px -30px rgba(255,90,122,0.45), 0 40px 120px -50px rgba(255,122,89,0.25)",
+        innerHi: "inset 0 1px 0 rgba(255,255,255,0.10)",
+        glow: "0 0 0 1px rgba(255,90,122,0.30), 0 12px 40px -8px rgba(255,90,122,0.45)",
       },
       backgroundImage: {
-        "grad-brand": "linear-gradient(135deg, #ef3a5b 0%, #ff5a4a 100%)",
+        "grad-brand": "linear-gradient(135deg, #ff5a7a 0%, #ff7a59 100%)",
         "grad-brand-soft":
-          "linear-gradient(135deg, rgba(239,58,91,0.10) 0%, rgba(255,90,74,0.10) 100%)",
+          "linear-gradient(135deg, rgba(255,90,122,0.18) 0%, rgba(255,122,89,0.18) 100%)",
         "grad-hero":
-          "radial-gradient(1100px 520px at 18% -15%, rgba(239,58,91,0.14), transparent 60%), radial-gradient(900px 460px at 92% -10%, rgba(255,90,74,0.16), transparent 60%), radial-gradient(700px 400px at 50% 115%, rgba(239,58,91,0.06), transparent 60%)",
+          "radial-gradient(900px 500px at 20% 20%, rgba(255,90,122,0.20), transparent 60%), radial-gradient(900px 600px at 85% 10%, rgba(255,122,89,0.18), transparent 65%), radial-gradient(700px 500px at 50% 110%, rgba(120,72,255,0.10), transparent 70%)",
+        "grad-aurora":
+          "conic-gradient(from 180deg at 50% 50%, rgba(255,90,122,0.18), rgba(255,122,89,0.14), rgba(120,72,255,0.10), rgba(255,90,122,0.18))",
       },
       transitionTimingFunction: {
         "ease-out-expo": "cubic-bezier(0.16, 1, 0.3, 1)",

@@ -30,7 +30,7 @@ export default function Chat({
   return (
     <div className="flex flex-col h-full bg-surface border-r border-border">
       <div className="px-5 py-4 border-b border-border flex items-center gap-2.5">
-        <div className="size-7 rounded-xl bg-grad-brand grid place-items-center shadow-soft">
+        <div className="size-7 rounded-xl bg-grad-brand grid place-items-center shadow-glow">
           <Sparkles className="size-3.5 text-white icon-thin" />
         </div>
         <h2 className="font-medium tracking-tight">Infinity</h2>
@@ -42,14 +42,14 @@ export default function Chat({
           <div className="pt-6">
             <span className="eyebrow !text-[10px]">Start here</span>
             <h3 className="mt-4 font-display text-2xl font-semibold tracking-tightest-2 leading-tight text-balance">
-              Tell me what to build,<br /><span className="serif text-primary">in one sentence.</span>
+              Tell me what to build,<br /><span className="gradient-text">in one sentence.</span>
             </h3>
             <div className="mt-7 grid gap-2.5">
               {SUGGESTIONS.map((s) => (
                 <button
                   key={s}
                   onClick={() => onSend(s)}
-                  className="card rounded-2xl px-4 py-3.5 text-[13.5px] text-left text-text/90 leading-relaxed hover:border-borderStrong hover:-translate-y-px transition-all duration-500 ease-out-expo group"
+                  className="press card rounded-2xl px-4 py-3.5 text-[13.5px] text-left text-text/90 leading-relaxed hover:border-borderStrong hover:-translate-y-px transition-all duration-500 ease-out-expo group"
                 >
                   <span className="font-mono text-[10px] uppercase tracking-widest text-subtle group-hover:text-primary transition-colors">Try</span>
                   <span className="block mt-1 text-pretty">{s}</span>
@@ -63,8 +63,8 @@ export default function Chat({
           <div key={i} className="flex gap-3 animate-fade-in">
             <div className={`size-8 rounded-xl shrink-0 grid place-items-center ${
               m.role === "user"
-                ? "bg-bg border border-border"
-                : "bg-grad-brand shadow-soft"
+                ? "bg-white/[0.04] border border-border"
+                : "bg-grad-brand shadow-glow"
             }`}>
               {m.role === "user" ? (
                 <span className="font-mono text-[10px] font-medium text-muted">You</span>
@@ -73,7 +73,7 @@ export default function Chat({
               )}
             </div>
             <div className={`flex-1 rounded-2xl px-4 py-3 text-[14px] leading-relaxed ${
-              m.role === "user" ? "bg-bg border border-border" : "card"
+              m.role === "user" ? "bg-white/[0.03] border border-border" : "card"
             }`}>
               <Markdown text={m.content} />
             </div>
@@ -82,7 +82,7 @@ export default function Chat({
 
         {busy && (
           <div className="flex gap-3 animate-fade-in">
-            <div className="size-8 rounded-xl bg-grad-brand grid place-items-center shadow-soft">
+            <div className="size-8 rounded-xl bg-grad-brand grid place-items-center shadow-glow">
               <Sparkles className="size-4 text-white icon-thin" />
             </div>
             <div className="card rounded-2xl px-4 py-3 text-sm flex items-center gap-2 text-muted">
@@ -93,15 +93,15 @@ export default function Chat({
         )}
       </div>
 
-      <form onSubmit={submit} className="p-4 border-t border-border bg-bg/40">
-        <div className="relative bg-white rounded-2xl border border-borderStrong/40 focus-within:border-primary/40 focus-within:ring-4 focus-within:ring-primary/10 transition-all duration-300 ease-out-expo shadow-soft">
+      <form onSubmit={submit} className="p-4 border-t border-border bg-bg/30">
+        <div className="relative bg-elevated rounded-2xl border border-borderStrong/40 focus-within:border-primary/40 focus-within:ring-4 focus-within:ring-primary/10 transition-all duration-300 ease-out-expo shadow-soft">
           <textarea
             value={text}
             onChange={(e) => setText(e.target.value)}
             onKeyDown={(e) => { if (e.key === "Enter" && !e.shiftKey) submit(); }}
             placeholder="Describe an automation..."
             rows={2}
-            className="w-full resize-none bg-transparent rounded-2xl px-4 py-3 pr-14 outline-none text-[14px] tracking-tight placeholder:text-subtle"
+            className="w-full resize-none bg-transparent rounded-2xl px-4 py-3 pr-14 outline-none text-[14px] tracking-tight placeholder:text-subtle text-text"
           />
           <button
             type="submit"
