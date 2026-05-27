@@ -4,6 +4,12 @@ import { Sparkles, Loader2, ArrowUp } from "lucide-react";
 
 export type ChatMsg = { role: "user" | "assistant" | "system"; content: string };
 
+const SUGGESTIONS = [
+  "Send my Gmail unread count to Slack each morning at 9am",
+  "When a new Stripe payment lands, add the customer to Notion and email me",
+  "Daily AI summary of Hacker News top stories to Telegram",
+];
+
 export default function Chat({
   messages, onSend, busy,
 }: { messages: ChatMsg[]; onSend: (text: string) => void; busy: boolean }) {
@@ -23,30 +29,30 @@ export default function Chat({
 
   return (
     <div className="flex flex-col h-full bg-surface border-r border-border">
-      <div className="px-5 py-4 border-b border-border flex items-center gap-2">
-        <div className="size-7 rounded-lg bg-grad-brand grid place-items-center shadow-glow">
-          <Sparkles className="size-3.5 text-white" />
+      <div className="px-5 py-4 border-b border-border flex items-center gap-2.5">
+        <div className="size-7 rounded-xl bg-grad-brand grid place-items-center shadow-soft">
+          <Sparkles className="size-3.5 text-white icon-thin" />
         </div>
-        <h2 className="font-medium">Infinity</h2>
-        <span className="ml-auto text-xs text-muted">Describe what to automate</span>
+        <h2 className="font-medium tracking-tight">Infinity</h2>
+        <span className="ml-auto font-mono text-[10px] uppercase tracking-widest text-subtle">Builder</span>
       </div>
 
       <div ref={scrollRef} className="flex-1 overflow-auto p-5 space-y-4">
         {messages.length === 0 && (
-          <div className="text-center pt-10 text-muted">
-            <div className="size-12 mx-auto rounded-2xl bg-grad-brand-soft grid place-items-center mb-3">
-              <Sparkles className="size-5 text-primary" />
-            </div>
-            <p className="text-sm">Tell me what to build.</p>
-            <div className="mt-6 grid gap-2 text-left">
-              {[
-                "Send my Gmail unread count to Slack each morning",
-                "When new Stripe payment, add to Notion + email me",
-                "Daily AI summary of HN top stories to Telegram",
-              ].map((s) => (
-                <button key={s} onClick={() => onSend(s)}
-                  className="card rounded-xl p-3 text-sm text-text/90 text-left hover:border-primary/30 hover:shadow-soft transition">
-                  → {s}
+          <div className="pt-6">
+            <span className="eyebrow !text-[10px]">Start here</span>
+            <h3 className="mt-4 font-display text-2xl font-semibold tracking-tightest-2 leading-tight text-balance">
+              Tell me what to build,<br /><span className="serif text-primary">in one sentence.</span>
+            </h3>
+            <div className="mt-7 grid gap-2.5">
+              {SUGGESTIONS.map((s) => (
+                <button
+                  key={s}
+                  onClick={() => onSend(s)}
+                  className="card rounded-2xl px-4 py-3.5 text-[13.5px] text-left text-text/90 leading-relaxed hover:border-borderStrong hover:-translate-y-px transition-all duration-500 ease-out-expo group"
+                >
+                  <span className="font-mono text-[10px] uppercase tracking-widest text-subtle group-hover:text-primary transition-colors">Try</span>
+                  <span className="block mt-1 text-pretty">{s}</span>
                 </button>
               ))}
             </div>
@@ -55,16 +61,18 @@ export default function Chat({
 
         {messages.map((m, i) => (
           <div key={i} className="flex gap-3 animate-fade-in">
-            <div className={`size-8 rounded-lg shrink-0 grid place-items-center ${
-              m.role === "user" ? "bg-bg border border-border" : "bg-grad-brand shadow-glow"
+            <div className={`size-8 rounded-xl shrink-0 grid place-items-center ${
+              m.role === "user"
+                ? "bg-bg border border-border"
+                : "bg-grad-brand shadow-soft"
             }`}>
               {m.role === "user" ? (
-                <span className="text-xs font-medium text-muted">You</span>
+                <span className="font-mono text-[10px] font-medium text-muted">You</span>
               ) : (
-                <Sparkles className="size-4 text-white" />
+                <Sparkles className="size-4 text-white icon-thin" />
               )}
             </div>
-            <div className={`flex-1 rounded-2xl px-4 py-3 text-sm ${
+            <div className={`flex-1 rounded-2xl px-4 py-3 text-[14px] leading-relaxed ${
               m.role === "user" ? "bg-bg border border-border" : "card"
             }`}>
               <Markdown text={m.content} />
@@ -73,36 +81,35 @@ export default function Chat({
         ))}
 
         {busy && (
-          <div className="flex gap-3">
-            <div className="size-8 rounded-lg bg-grad-brand grid place-items-center shadow-glow">
-              <Sparkles className="size-4 text-white" />
+          <div className="flex gap-3 animate-fade-in">
+            <div className="size-8 rounded-xl bg-grad-brand grid place-items-center shadow-soft">
+              <Sparkles className="size-4 text-white icon-thin" />
             </div>
             <div className="card rounded-2xl px-4 py-3 text-sm flex items-center gap-2 text-muted">
-              <Loader2 className="size-4 animate-spin text-primary" />
-              <span className="typing">Building your automation</span>
+              <Loader2 className="size-4 animate-spin text-primary icon-thin" />
+              <span className="typing">Wiring it up</span>
             </div>
           </div>
         )}
       </div>
 
       <form onSubmit={submit} className="p-4 border-t border-border bg-bg/40">
-        <div className="relative bg-white rounded-2xl border border-border focus-within:border-primary/40 focus-within:ring-4 focus-within:ring-primary/10 transition shadow-soft">
+        <div className="relative bg-white rounded-2xl border border-borderStrong/40 focus-within:border-primary/40 focus-within:ring-4 focus-within:ring-primary/10 transition-all duration-300 ease-out-expo shadow-soft">
           <textarea
             value={text}
             onChange={(e) => setText(e.target.value)}
-            onKeyDown={(e) => {
-              if (e.key === "Enter" && !e.shiftKey) submit();
-            }}
+            onKeyDown={(e) => { if (e.key === "Enter" && !e.shiftKey) submit(); }}
             placeholder="Describe an automation..."
             rows={2}
-            className="w-full resize-none bg-transparent rounded-2xl px-4 py-3 pr-14 outline-none text-sm placeholder:text-subtle"
+            className="w-full resize-none bg-transparent rounded-2xl px-4 py-3 pr-14 outline-none text-[14px] tracking-tight placeholder:text-subtle"
           />
           <button
             type="submit"
+            aria-label="Send"
             disabled={busy || !text.trim()}
             className="absolute bottom-2.5 right-2.5 size-9 rounded-xl btn-primary grid place-items-center"
           >
-            {busy ? <Loader2 className="size-4 animate-spin" /> : <ArrowUp className="size-4" />}
+            {busy ? <Loader2 className="size-4 animate-spin icon-thin" /> : <ArrowUp className="size-4 icon-thin" />}
           </button>
         </div>
       </form>

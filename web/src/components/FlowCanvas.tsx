@@ -3,6 +3,7 @@ import { useMemo } from "react";
 import ReactFlow, {
   Background, Controls, MiniMap, Handle, Position, type Node, type Edge,
 } from "reactflow";
+import { Workflow as WorkflowIcon } from "lucide-react";
 import { iconForType, labelForType, colorForType } from "@/lib/nodeMeta";
 
 type AINode = {
@@ -99,12 +100,14 @@ export default function FlowCanvas({ workflow }: { workflow: AIWorkflow | null }
   if (!workflow?.nodes?.length) {
     return (
       <div className="h-full grid place-items-center text-muted bg-bg">
-        <div className="text-center">
-          <div className="size-16 mx-auto mb-4 rounded-2xl bg-grad-brand-soft grid place-items-center shadow-soft">
-            <span className="text-3xl">✨</span>
+        <div className="text-center max-w-sm px-6">
+          <div className="size-14 mx-auto mb-5 rounded-2xl bg-grad-brand-soft grid place-items-center shadow-soft">
+            <WorkflowIcon className="size-6 icon-thin text-primary" />
           </div>
-          <p className="font-medium text-text">Your workflow will appear here</p>
-          <p className="text-xs mt-1.5">Describe an automation in the chat →</p>
+          <p className="font-display text-xl font-medium tracking-tight text-text text-balance">
+            Your canvas is ready.
+          </p>
+          <p className="text-sm mt-2 text-pretty">Describe an automation in the chat. Nodes will land here as the AI thinks.</p>
         </div>
       </div>
     );

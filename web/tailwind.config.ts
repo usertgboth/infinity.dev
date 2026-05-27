@@ -5,59 +5,66 @@ export default {
   theme: {
     extend: {
       colors: {
-        // Lovable-inspired warm palette
-        bg: "#fdfaf6",          // cream background
+        // Editorial Luxury palette — warm cream base, deep charcoal ink, single coral accent.
+        bg: "#fbf8f3",
         surface: "#ffffff",
-        card: "#ffffff",
-        ink: "#0e0e0f",         // near-black text
-        text: "#1a1a1a",
-        muted: "#6b7280",
-        subtle: "#9ca3af",
-        border: "#ececea",
-        borderStrong: "#dad8d3",
-        // Brand: coral → pink → orange gradient
-        primary: "#ff4d6d",
-        primaryDark: "#ef3a5b",
-        coral: "#ff6f47",
-        peach: "#ffb38a",
+        ink: "#0a0a0b",
+        text: "#111114",
+        muted: "#5a5a63",
+        subtle: "#9a9aa3",
+        border: "rgba(15, 15, 17, 0.07)",
+        borderStrong: "rgba(15, 15, 17, 0.12)",
+        primary: "#ef3a5b",
+        primaryDark: "#d4264a",
+        coral: "#ff5a4a",
         success: "#16a34a",
         danger: "#dc2626",
-        // Dark mode (used inside the builder)
-        dark: "#0f0f10",
-        darkSurface: "#161617",
-        darkBorder: "#27272a",
       },
       fontFamily: {
-        sans: ["Inter", "ui-sans-serif", "system-ui", "sans-serif"],
-        display: ["Inter", "ui-sans-serif", "system-ui", "sans-serif"],
-        mono: ["JetBrains Mono", "ui-monospace", "monospace"],
+        sans: ['"Geist"', "ui-sans-serif", "system-ui", "sans-serif"],
+        display: ['"Geist"', "ui-sans-serif", "system-ui", "sans-serif"],
+        serif: ['"Instrument Serif"', "Georgia", "serif"],
+        mono: ['"Geist Mono"', "ui-monospace", "monospace"],
+      },
+      letterSpacing: {
+        "tightest-2": "-0.04em",
       },
       boxShadow: {
-        // Soft, lifted Lovable-style shadows
-        soft: "0 1px 2px rgba(15,15,16,0.04), 0 8px 24px -8px rgba(15,15,16,0.08)",
-        lifted: "0 2px 4px rgba(15,15,16,0.04), 0 24px 48px -12px rgba(15,15,16,0.12)",
-        prompt: "0 1px 0 rgba(255,255,255,0.6) inset, 0 8px 32px -4px rgba(255,77,109,0.18), 0 30px 60px -20px rgba(255,111,71,0.18)",
-        glow: "0 0 0 4px rgba(255,77,109,0.10), 0 20px 40px -12px rgba(255,77,109,0.30)",
+        // Soft, diffused, daylight-source shadows. Inner highlights for depth.
+        hairline: "inset 0 0 0 1px rgba(15,15,17,0.06)",
+        soft: "0 1px 2px rgba(15,15,17,0.04), 0 8px 24px -8px rgba(15,15,17,0.06)",
+        lifted: "0 2px 4px rgba(15,15,17,0.03), 0 30px 60px -20px rgba(15,15,17,0.10)",
+        prompt:
+          "inset 0 1px 0 rgba(255,255,255,0.9), 0 1px 2px rgba(15,15,17,0.04), 0 12px 28px -10px rgba(239,58,91,0.22), 0 40px 80px -30px rgba(239,58,91,0.12)",
+        innerHi: "inset 0 1px 0 rgba(255,255,255,0.7)",
       },
       backgroundImage: {
-        "grad-brand": "linear-gradient(135deg, #ff4d6d 0%, #ff6f47 100%)",
-        "grad-brand-soft": "linear-gradient(135deg, rgba(255,77,109,0.12) 0%, rgba(255,111,71,0.12) 100%)",
+        "grad-brand": "linear-gradient(135deg, #ef3a5b 0%, #ff5a4a 100%)",
+        "grad-brand-soft":
+          "linear-gradient(135deg, rgba(239,58,91,0.10) 0%, rgba(255,90,74,0.10) 100%)",
         "grad-hero":
-          "radial-gradient(1200px 600px at 20% -10%, rgba(255,77,109,0.18), transparent 55%), radial-gradient(1000px 500px at 90% 0%, rgba(255,179,138,0.25), transparent 55%), radial-gradient(800px 500px at 50% 110%, rgba(255,111,71,0.10), transparent 60%)",
-        noise:
-          "url(\"data:image/svg+xml;utf8,<svg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%' height='100%' filter='url(%23n)' opacity='0.5'/></svg>\")",
+          "radial-gradient(1100px 520px at 18% -15%, rgba(239,58,91,0.14), transparent 60%), radial-gradient(900px 460px at 92% -10%, rgba(255,90,74,0.16), transparent 60%), radial-gradient(700px 400px at 50% 115%, rgba(239,58,91,0.06), transparent 60%)",
+      },
+      transitionTimingFunction: {
+        "ease-out-expo": "cubic-bezier(0.16, 1, 0.3, 1)",
+        "ease-spring": "cubic-bezier(0.32, 0.72, 0, 1)",
       },
       animation: {
-        "fade-in": "fadeIn 0.4s ease-out",
-        "slide-up": "slideUp 0.5s cubic-bezier(0.16, 1, 0.3, 1)",
-        shimmer: "shimmer 2s linear infinite",
-        float: "float 6s ease-in-out infinite",
+        "fade-in": "fadeIn 600ms cubic-bezier(0.16, 1, 0.3, 1) both",
+        "rise": "rise 800ms cubic-bezier(0.16, 1, 0.3, 1) both",
+        "slide-up": "slideUp 500ms cubic-bezier(0.32, 0.72, 0, 1) both",
+        "marquee": "marquee 40s linear infinite",
+        "pulse-soft": "pulseSoft 3s cubic-bezier(0.4, 0, 0.6, 1) infinite",
       },
       keyframes: {
         fadeIn: { "0%": { opacity: "0" }, "100%": { opacity: "1" } },
+        rise: {
+          "0%": { opacity: "0", transform: "translateY(16px)", filter: "blur(6px)" },
+          "100%": { opacity: "1", transform: "translateY(0)", filter: "blur(0)" },
+        },
         slideUp: { "0%": { opacity: "0", transform: "translateY(8px)" }, "100%": { opacity: "1", transform: "translateY(0)" } },
-        shimmer: { "0%": { backgroundPosition: "-200% 0" }, "100%": { backgroundPosition: "200% 0" } },
-        float: { "0%,100%": { transform: "translateY(0)" }, "50%": { transform: "translateY(-6px)" } },
+        marquee: { "0%": { transform: "translateX(0)" }, "100%": { transform: "translateX(-50%)" } },
+        pulseSoft: { "0%,100%": { opacity: "1" }, "50%": { opacity: "0.55" } },
       },
     },
   },
