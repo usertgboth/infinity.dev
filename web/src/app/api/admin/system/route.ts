@@ -26,7 +26,7 @@ export async function GET() {
   const n8nUrl = process.env.N8N_BASE_URL || "";
   const n8nKey = process.env.N8N_API_KEY || "";
   if (!n8nUrl || !n8nKey) {
-    checks.n8n = { status: "disabled", detail: "N8N_BASE_URL or N8N_API_KEY not set" };
+    checks.n8n = { status: "disabled", detail: "Engine URL or API key not configured" };
   } else {
     try {
       const res = await fetch(`${n8nUrl}/api/v1/workflows`, {
@@ -34,18 +34,18 @@ export async function GET() {
         cache: "no-store",
       });
       if (res.ok) {
-        checks.n8n = { status: "healthy", detail: `n8n reachable at ${n8nUrl}` };
+        checks.n8n = { status: "healthy", detail: "Engine reachable" };
       } else {
-        checks.n8n = { status: "error", detail: `n8n returned ${res.status}` };
+        checks.n8n = { status: "error", detail: `Engine returned ${res.status}` };
       }
     } catch (e: any) {
-      checks.n8n = { status: "error", detail: `Cannot reach ${n8nUrl}: ${e.message}` };
+      checks.n8n = { status: "error", detail: `Cannot reach engine: ${e.message}` };
     }
   }
 
   const openaiKey = process.env.OPENAI_API_KEY || "";
   if (!openaiKey) {
-    checks.openai = { status: "disabled", detail: "OPENAI_API_KEY not set" };
+    checks.openai = { status: "disabled", detail: "AI provider key not set" };
   } else {
     try {
       const openaiCheck = await fetch("https://api.openai.com/v1/models", {
@@ -56,7 +56,7 @@ export async function GET() {
         const model = process.env.OPENAI_MODEL || "gpt-4o-mini";
         checks.openai = { status: "healthy", detail: `API key valid`, model };
       } else {
-        checks.openai = { status: "error", detail: `OpenAI returned ${openaiCheck.status}` };
+        checks.openai = { status: "error", detail: `Provider returned ${openaiCheck.status}` };
       }
     } catch (e: any) {
       checks.openai = { status: "error", detail: e.message };

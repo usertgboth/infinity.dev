@@ -71,7 +71,7 @@ export async function POST(req: Request) {
   }
 
   const replyText = `I built **${draft.name}** for you. ${draft.nodes.length} nodes wired up.${
-    n8nId ? " Synced to n8n." : ""
+    n8nId ? " Live in production." : ""
   }`;
   await prisma.message.create({ data: { chatId: chat.id, role: "assistant", content: replyText } });
 

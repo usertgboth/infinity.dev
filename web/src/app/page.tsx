@@ -25,7 +25,7 @@ const stats = [
 
 const testimonials = [
   {
-    quote: "I built 12 internal automations in one weekend. Would have taken my team 3 weeks in n8n directly. Now we ship faster than companies 10× our size.",
+    quote: "I built 12 internal automations in one weekend. Would have taken my team 3 weeks otherwise. Now we ship faster than companies 10× our size.",
     name: "Linnea Kessler",
     role: "Founder, Northwind",
     initials: "LK",
@@ -110,8 +110,8 @@ const compare: { feature: string; infinity: string | true; zapier: string | true
 
 const faq = [
   {
-    q: "Do I need to know n8n?",
-    a: "No. Infinity is built on top of n8n, but you never have to touch it. Describe what you want in English; we generate the workflow. If you want to tweak something deep, you can — the canvas is fully editable.",
+    q: "Do I need to know how to code?",
+    a: "No. Describe what you want in plain English and the AI assembles the workflow visually. If you want to fine-tune a step, every node is fully editable on the canvas — but you almost never need to.",
   },
   {
     q: "How is this different from Zapier?",
@@ -119,7 +119,7 @@ const faq = [
   },
   {
     q: "What happens to my workflows if I cancel?",
-    a: "You can export every workflow as standard n8n JSON and run it on any n8n instance — including your own self-hosted one. Zero lock-in. We compete by being the best surface, not by trapping your data.",
+    a: "Every workflow exports to a standard JSON spec you fully own. Run it on our self-hosted edition or take it elsewhere. Zero lock-in — we compete by being the best surface, not by trapping your data.",
   },
   {
     q: "How fast can I actually ship something?",
@@ -249,11 +249,11 @@ export default function Landing() {
             <span className="sm:hidden">50% off for early users</span>
           </span>
           <h1 className="mt-5 sm:mt-6 md:mt-7 text-balance font-display text-[32px] sm:text-5xl md:text-6xl lg:text-7xl xl:text-[84px] font-semibold tracking-tightest-2 leading-[0.95]">
-            Ship n8n automations<br className="hidden sm:block" />
+            Ship any automation<br className="hidden sm:block" />
             <span className="gradient-text">in 60 seconds.</span>
           </h1>
           <p className="mt-4 sm:mt-5 md:mt-6 text-pretty text-sm sm:text-base md:text-lg text-muted max-w-xl mx-auto px-2">
-            Describe an automation in plain English. Infinity's AI wires the workflow on n8n, you click Activate. That's it.
+            Describe an automation in plain English. Our AI wires the workflow, you click Activate. That's it.
           </p>
         </div>
 
@@ -358,7 +358,7 @@ export default function Landing() {
             </div>
             <ul className="space-y-2.5 text-sm text-muted">
               {[
-                "Open n8n. Browse 400 nodes. Pick one.",
+                "Open Zapier. Browse hundreds of triggers. Pick one.",
                 "Read the docs for OAuth scopes. Copy-paste credentials.",
                 "Configure 6 fields per node, hope you got JSON right.",
                 "Hit run. Get a 401. Debug for 40 minutes.",
@@ -615,7 +615,7 @@ export default function Landing() {
             </div>
             <div className="px-2 sm:px-4 py-3 sm:py-4 text-center">Zapier</div>
             <div className="px-2 sm:px-4 py-3 sm:py-4 text-center">
-              <span className="hidden sm:inline">Manual n8n</span>
+              <span className="hidden sm:inline">Code / DIY</span>
               <span className="sm:hidden">DIY</span>
             </div>
           </div>
@@ -700,7 +700,7 @@ export default function Landing() {
             <a href="#pricing" className="hover:text-text transition-colors">Pricing</a>
             <a href="#faq" className="hover:text-text transition-colors">FAQ</a>
             <Link href="mailto:hi@infinity.dev" className="hover:text-text transition-colors">Contact</Link>
-            <span className="text-subtle hidden sm:inline">Built on n8n</span>
+            <span className="text-subtle hidden sm:inline">Made for builders</span>
           </div>
         </div>
       </footer>

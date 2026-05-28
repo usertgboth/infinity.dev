@@ -21,8 +21,8 @@ export default function AdminSystem() {
 
   const labels: Record<string, string> = {
     database: "Database",
-    n8n: "n8n Engine",
-    openai: "OpenAI",
+    n8n: "Workflow Engine",
+    openai: "AI Provider",
     auth: "Authentication",
   };
 

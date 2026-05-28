@@ -78,7 +78,7 @@ export default function ChatPage() {
           <h3 className="font-medium tracking-tight truncate text-sm md:text-base">{workflow?.name || "Canvas"}</h3>
           {n8nId && (
             <span className="hidden sm:inline-flex items-center gap-1.5 text-[10px] uppercase tracking-widest text-success font-mono shrink-0">
-              <CheckCircle2 className="size-3 icon-thin" /> n8n synced
+              <CheckCircle2 className="size-3 icon-thin" /> Live
             </span>
           )}
           <div className="ml-auto flex items-center gap-1.5 md:gap-2">

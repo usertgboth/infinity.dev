@@ -151,7 +151,7 @@ export default function FlowCanvas({ workflow }: { workflow: AIWorkflow | null }
             Your canvas is ready.
           </p>
           <p className="text-xs sm:text-sm mt-1.5 sm:mt-2 text-pretty">
-            Describe an automation in the chat. Nodes will appear here as the AI builds your n8n workflow.
+            Describe an automation in the chat. Nodes will appear here as the AI builds your workflow.
           </p>
         </div>
       </div>
