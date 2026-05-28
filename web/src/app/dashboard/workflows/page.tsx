@@ -71,12 +71,16 @@ export default function WorkflowsList() {
 
       <div className="space-y-2">
         {items.map((w) => (
-          <div key={w.id} className="card rounded-xl sm:rounded-2xl p-3 sm:p-3.5 md:p-4 flex items-center gap-2.5 sm:gap-3 md:gap-4 hover:border-borderStrong transition-colors">
+          <Link
+            key={w.id}
+            href={`/dashboard/workflows/${w.id}`}
+            className="press group card rounded-xl sm:rounded-2xl p-3 sm:p-3.5 md:p-4 flex items-center gap-2.5 sm:gap-3 md:gap-4 hover:border-borderStrong hover:-translate-y-px transition-all duration-300 ease-out-expo"
+          >
             <div className="size-8 sm:size-9 md:size-10 rounded-lg sm:rounded-xl bg-grad-brand-soft border border-primary/20 grid place-items-center shrink-0">
               <Workflow className="size-3.5 sm:size-4 md:size-5 icon-thin text-primary" />
             </div>
             <div className="min-w-0 flex-1">
-              <div className="font-medium truncate text-xs sm:text-sm md:text-base">{w.name}</div>
+              <div className="font-medium truncate text-xs sm:text-sm md:text-base group-hover:text-text transition-colors">{w.name}</div>
               <div className="text-[10px] sm:text-xs text-muted truncate">
                 <span className="hidden sm:inline">{w.description || "—"} · </span>
                 updated {relativeTime(w.updatedAt)}
@@ -84,7 +88,7 @@ export default function WorkflowsList() {
               </div>
             </div>
             <button
-              onClick={() => toggle(w.id, w.active)}
+              onClick={(e) => { e.preventDefault(); e.stopPropagation(); toggle(w.id, w.active); }}
               aria-label={w.active ? "Deactivate" : "Activate"}
               className={`px-2 sm:px-2.5 md:px-3 py-1 md:py-1.5 rounded-full text-[10px] sm:text-xs flex items-center gap-1 md:gap-1.5 transition-colors border press shrink-0 ${
                 w.active
@@ -96,13 +100,13 @@ export default function WorkflowsList() {
               <span className="hidden sm:inline">{w.active ? "Active" : "Off"}</span>
             </button>
             <button
-              onClick={() => remove(w.id)}
+              onClick={(e) => { e.preventDefault(); e.stopPropagation(); remove(w.id); }}
               aria-label="Delete"
               className="size-7 sm:size-8 grid place-items-center rounded-lg hover:bg-danger/10 text-muted hover:text-danger transition-colors press shrink-0"
             >
               <Trash2 className="size-3.5 sm:size-4 icon-thin" />
             </button>
-          </div>
+          </Link>
         ))}
       </div>
     </div>
