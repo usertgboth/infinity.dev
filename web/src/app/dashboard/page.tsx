@@ -4,7 +4,7 @@ import { useSearchParams } from "next/navigation";
 import Chat, { type ChatMsg } from "@/components/Chat";
 import FlowCanvas from "@/components/FlowCanvas";
 import BuilderSplit from "@/components/BuilderSplit";
-import { Sparkles, Play, Save } from "lucide-react";
+import { Sparkles, Play, Save, CheckCircle2 } from "lucide-react";
 
 export default function DashboardHome() {
   return (
@@ -22,6 +22,7 @@ function DashboardInner() {
   const [busy, setBusy] = useState(false);
   const [chatId, setChatId] = useState<string | null>(null);
   const [workflowId, setWorkflowId] = useState<string | null>(null);
+  const [n8nId, setN8nId] = useState<string | null>(null);
   const [autoSent, setAutoSent] = useState(false);
   const [activated, setActivated] = useState(false);
 
@@ -40,6 +41,7 @@ function DashboardInner() {
       setWorkflow(j.workflow);
       setChatId(j.chatId);
       setWorkflowId(j.workflowId);
+      setN8nId(j.n8nId || null);
       setActivated(false);
     } catch (e: any) {
       setMessages((m) => [...m, { role: "assistant", content: `⚠️ ${e.message}` }]);
@@ -76,6 +78,11 @@ function DashboardInner() {
           <h3 className="font-medium tracking-tight truncate text-sm md:text-base">
             {workflow?.name || "Live canvas"}
           </h3>
+          {n8nId && (
+            <span className="hidden sm:inline-flex items-center gap-1.5 text-[10px] uppercase tracking-widest text-success font-mono shrink-0">
+              <CheckCircle2 className="size-3 icon-thin" /> n8n synced
+            </span>
+          )}
           <div className="ml-auto flex items-center gap-1.5 md:gap-2">
             {workflowId && (
               <>

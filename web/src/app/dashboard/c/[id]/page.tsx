@@ -4,13 +4,16 @@ import { useParams } from "next/navigation";
 import Chat, { type ChatMsg } from "@/components/Chat";
 import FlowCanvas from "@/components/FlowCanvas";
 import BuilderSplit from "@/components/BuilderSplit";
-import { Sparkles } from "lucide-react";
+import { Sparkles, Play, CheckCircle2 } from "lucide-react";
 
 export default function ChatPage() {
   const { id } = useParams<{ id: string }>();
   const [messages, setMessages] = useState<ChatMsg[]>([]);
   const [workflow, setWorkflow] = useState<any>(null);
   const [busy, setBusy] = useState(false);
+  const [workflowId, setWorkflowId] = useState<string | null>(null);
+  const [n8nId, setN8nId] = useState<string | null>(null);
+  const [activated, setActivated] = useState(false);
 
   useEffect(() => {
     if (!id) return;
@@ -25,6 +28,9 @@ export default function ChatPage() {
           nodes: j.workflow.graph?.nodes || [],
           connections: j.workflow.graph?.connections || {},
         });
+        setWorkflowId(j.workflow.id);
+        setN8nId(j.workflow.n8nId || null);
+        setActivated(Boolean(j.workflow.active));
       }
     })();
   }, [id]);
@@ -42,11 +48,24 @@ export default function ChatPage() {
       if (!r.ok) throw new Error(j.error || "Failed");
       setMessages((m) => [...m, { role: "assistant", content: j.reply }]);
       setWorkflow(j.workflow);
+      setWorkflowId(j.workflowId);
+      setN8nId(j.n8nId || null);
+      setActivated(false);
     } catch (e: any) {
       setMessages((m) => [...m, { role: "assistant", content: `⚠️ ${e.message}` }]);
     } finally {
       setBusy(false);
     }
+  }
+
+  async function activate() {
+    if (!workflowId) return;
+    await fetch(`/api/workflows/${workflowId}`, {
+      method: "PATCH",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ active: true }),
+    });
+    setActivated(true);
   }
 
   return (
@@ -57,6 +76,26 @@ export default function ChatPage() {
         <div className="h-14 border-b border-border px-3 md:px-5 flex items-center gap-2 md:gap-3 bg-surface">
           <Sparkles className="size-4 icon-thin text-primary shrink-0" />
           <h3 className="font-medium tracking-tight truncate text-sm md:text-base">{workflow?.name || "Canvas"}</h3>
+          {n8nId && (
+            <span className="hidden sm:inline-flex items-center gap-1.5 text-[10px] uppercase tracking-widest text-success font-mono shrink-0">
+              <CheckCircle2 className="size-3 icon-thin" /> n8n synced
+            </span>
+          )}
+          <div className="ml-auto flex items-center gap-1.5 md:gap-2">
+            {workflowId && (
+              <button
+                onClick={activate}
+                className={`text-xs md:text-sm px-3 py-1.5 rounded-full inline-flex items-center gap-1.5 md:gap-2 transition-all duration-200 press ${
+                  activated
+                    ? "bg-success/10 text-success border border-success/30"
+                    : "btn-primary"
+                }`}
+              >
+                <Play className="size-3.5 icon-thin" />
+                <span>{activated ? "Activated" : "Activate"}</span>
+              </button>
+            )}
+          </div>
         </div>
       }
     />
