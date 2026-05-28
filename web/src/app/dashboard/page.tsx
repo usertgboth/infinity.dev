@@ -3,6 +3,7 @@ import { Suspense, useEffect, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import Chat, { type ChatMsg } from "@/components/Chat";
 import FlowCanvas from "@/components/FlowCanvas";
+import BuilderSplit from "@/components/BuilderSplit";
 import { Sparkles, Play, Save } from "lucide-react";
 
 export default function DashboardHome() {
@@ -66,32 +67,37 @@ function DashboardInner() {
   }
 
   return (
-    <div className="grid grid-cols-[440px_1fr] h-full">
-      <Chat messages={messages} onSend={send} busy={busy} />
-      <div className="flex flex-col">
-        <div className="h-14 border-b border-border px-5 flex items-center gap-3 bg-surface">
-          <Sparkles className="size-4 text-primary" />
-          <h3 className="font-medium truncate">{workflow?.name || "Live canvas"}</h3>
-          <div className="ml-auto flex items-center gap-2">
+    <BuilderSplit
+      chat={<Chat messages={messages} onSend={send} busy={busy} />}
+      canvas={<FlowCanvas workflow={workflow} />}
+      toolbar={
+        <div className="h-14 border-b border-border px-3 md:px-5 flex items-center gap-2 md:gap-3 bg-surface">
+          <Sparkles className="size-4 icon-thin text-primary shrink-0" />
+          <h3 className="font-medium tracking-tight truncate text-sm md:text-base">
+            {workflow?.name || "Live canvas"}
+          </h3>
+          <div className="ml-auto flex items-center gap-1.5 md:gap-2">
             {workflowId && (
               <>
-                <button onClick={activate}
-                  className={`text-sm px-3 py-1.5 rounded-full flex items-center gap-2 transition ${
-                    activated ? "bg-success/10 text-success border border-success/20" : "btn-primary"
-                  }`}>
-                  <Play className="size-3.5" /> {activated ? "Activated" : "Activate"}
+                <button
+                  onClick={activate}
+                  className={`text-xs md:text-sm px-3 py-1.5 rounded-full inline-flex items-center gap-1.5 md:gap-2 transition-all duration-200 press ${
+                    activated
+                      ? "bg-success/10 text-success border border-success/30"
+                      : "btn-primary"
+                  }`}
+                >
+                  <Play className="size-3.5 icon-thin" />
+                  <span>{activated ? "Activated" : "Activate"}</span>
                 </button>
-                <button className="text-sm btn-ghost px-3 py-1.5 rounded-full flex items-center gap-2">
-                  <Save className="size-3.5" /> Saved
+                <button className="hidden sm:inline-flex text-xs md:text-sm btn-ghost px-3 py-1.5 rounded-full items-center gap-2 press">
+                  <Save className="size-3.5 icon-thin" /> Saved
                 </button>
               </>
             )}
           </div>
         </div>
-        <div className="flex-1">
-          <FlowCanvas workflow={workflow} />
-        </div>
-      </div>
-    </div>
+      }
+    />
   );
 }

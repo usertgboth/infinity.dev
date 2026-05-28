@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { useParams } from "next/navigation";
 import Chat, { type ChatMsg } from "@/components/Chat";
 import FlowCanvas from "@/components/FlowCanvas";
+import BuilderSplit from "@/components/BuilderSplit";
 import { Sparkles } from "lucide-react";
 
 export default function ChatPage() {
@@ -49,15 +50,15 @@ export default function ChatPage() {
   }
 
   return (
-    <div className="grid grid-cols-[440px_1fr] h-full">
-      <Chat messages={messages} onSend={send} busy={busy} />
-      <div className="flex flex-col">
-        <div className="h-14 border-b border-border px-5 flex items-center gap-3 bg-surface">
-          <Sparkles className="size-4 text-primary" />
-          <h3 className="font-medium truncate">{workflow?.name || "Canvas"}</h3>
+    <BuilderSplit
+      chat={<Chat messages={messages} onSend={send} busy={busy} />}
+      canvas={<FlowCanvas workflow={workflow} />}
+      toolbar={
+        <div className="h-14 border-b border-border px-3 md:px-5 flex items-center gap-2 md:gap-3 bg-surface">
+          <Sparkles className="size-4 icon-thin text-primary shrink-0" />
+          <h3 className="font-medium tracking-tight truncate text-sm md:text-base">{workflow?.name || "Canvas"}</h3>
         </div>
-        <div className="flex-1"><FlowCanvas workflow={workflow} /></div>
-      </div>
-    </div>
+      }
+    />
   );
 }

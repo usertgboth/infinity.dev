@@ -22,23 +22,23 @@ type AIWorkflow = {
 function NodeCard({ data }: { data: any }) {
   const Icon = data.icon;
   return (
-    <div className="rounded-2xl card min-w-[230px] overflow-hidden animate-slide-up">
+    <div className="rounded-xl sm:rounded-2xl card min-w-[180px] sm:min-w-[210px] md:min-w-[230px] overflow-hidden animate-slide-up">
       <Handle type="target" position={Position.Left} />
-      <div className="px-4 py-3 flex items-center gap-3" style={{ background: data.color + "1f" }}>
-        <div className="size-8 rounded-lg grid place-items-center" style={{ background: data.color + "33" }}>
-          <Icon className="size-4 icon-thin" style={{ color: data.color }} />
+      <div className="px-3 sm:px-4 py-2.5 sm:py-3 flex items-center gap-2 sm:gap-3" style={{ background: data.color + "1f" }}>
+        <div className="size-7 sm:size-8 rounded-md sm:rounded-lg grid place-items-center" style={{ background: data.color + "33" }}>
+          <Icon className="size-3.5 sm:size-4 icon-thin" style={{ color: data.color }} />
         </div>
         <div className="min-w-0">
-          <div className="text-[10px] uppercase tracking-widest text-subtle truncate">{data.kind}</div>
-          <div className="text-sm font-medium truncate">{data.label}</div>
+          <div className="text-[9px] sm:text-[10px] uppercase tracking-widest text-subtle truncate">{data.kind}</div>
+          <div className="text-xs sm:text-sm font-medium truncate">{data.label}</div>
         </div>
       </div>
       {data.params && Object.keys(data.params).length > 0 && (
-        <div className="px-4 py-2 text-xs border-t border-border space-y-1 max-h-32 overflow-auto bg-elevated/40">
+        <div className="px-3 sm:px-4 py-1.5 sm:py-2 text-[10px] sm:text-xs border-t border-border space-y-0.5 sm:space-y-1 max-h-24 sm:max-h-32 overflow-auto bg-elevated/40">
           {Object.entries(data.params).slice(0, 4).map(([k, v]) => (
             <div key={k} className="flex justify-between gap-2">
-              <span className="text-subtle">{k}</span>
-              <span className="text-text/80 truncate max-w-[120px]" title={String(v)}>{
+              <span className="text-subtle truncate">{k}</span>
+              <span className="text-text/80 truncate max-w-[100px] sm:max-w-[120px]" title={String(v)}>{
                 typeof v === "string" ? v : JSON.stringify(v)
               }</span>
             </div>
@@ -100,14 +100,14 @@ export default function FlowCanvas({ workflow }: { workflow: AIWorkflow | null }
   if (!workflow?.nodes?.length) {
     return (
       <div className="h-full grid place-items-center text-muted bg-bg bg-dots-dark">
-        <div className="text-center max-w-sm px-6">
-          <div className="size-14 mx-auto mb-5 rounded-2xl bg-grad-brand-soft border border-primary/20 grid place-items-center shadow-glow">
-            <WorkflowIcon className="size-6 icon-thin text-primary" />
+        <div className="text-center max-w-xs sm:max-w-sm px-4 sm:px-6">
+          <div className="size-11 sm:size-14 mx-auto mb-3 sm:mb-5 rounded-xl sm:rounded-2xl bg-grad-brand-soft border border-primary/20 grid place-items-center shadow-glow">
+            <WorkflowIcon className="size-5 sm:size-6 icon-thin text-primary" />
           </div>
-          <p className="font-display text-xl font-medium tracking-tight text-text text-balance">
+          <p className="font-display text-lg sm:text-xl font-medium tracking-tight text-text text-balance">
             Your canvas is ready.
           </p>
-          <p className="text-sm mt-2 text-pretty">Describe an automation in the chat. Nodes will land here as the AI thinks.</p>
+          <p className="text-xs sm:text-sm mt-1.5 sm:mt-2 text-pretty">Describe an automation in the chat. Nodes will land here as the AI thinks.</p>
         </div>
       </div>
     );
@@ -115,6 +115,7 @@ export default function FlowCanvas({ workflow }: { workflow: AIWorkflow | null }
 
   return (
     <ReactFlow
+      className="bg-dots-dark"
       nodes={nodes}
       edges={edges}
       nodeTypes={nodeTypes}
